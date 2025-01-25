@@ -1,4 +1,4 @@
-FROM debian:12-slim
+FROM mcr.microsoft.com/devcontainers/cpp:1-debian-12
 ARG SDCC_VERSION=3.6.0
 ARG GPUTILS_VERSION=1.4.2
 
