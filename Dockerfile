@@ -1,22 +1,28 @@
 FROM debian:12-slim
+ARG SDCC_VERSION=3.6.0
+ARG GPUTILS_VERSION=1.4.2
 
 # Install build dependencies
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update && \
+    apt-get install -y \
+    bison \
+    flex \
+    g++ \
+    libboost-dev \
+    texinfo \
     wget \
     make \
-    gcc \
+    tar \
+    bzip2 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install SDCC 3.6.0
-WORKDIR /tmp
-RUN wget -q https://sourceforge.net/projects/sdcc/files/sdcc/3.6.0/sdcc-3.6.0.tar.bz2 \
-    && tar xf sdcc-3.6.0.tar.bz2 \
-    && cd sdcc-3.6.0 \
-    && ./configure --prefix=/opt/sdcc \
-    && make \
-    && make install \
-    && cd .. \
-    && rm -rf sdcc-3.6.0*
+# Set working directory
+WORKDIR /build
+
+COPY scripts/install-sdcc.sh /opt/src/scripts/sdcc.sh
+RUN /opt/src/scripts/sdcc.sh
+
 
 ENV PATH="/opt/sdcc/bin:${PATH}"
 
