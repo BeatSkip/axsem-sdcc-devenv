@@ -21,6 +21,7 @@ RUN apt-get update && \
 WORKDIR /build
 
 COPY scripts/install-sdcc.sh /opt/src/scripts/sdcc.sh
+RUN chmod +x /opt/src/scripts/sdcc.sh
 RUN /opt/src/scripts/sdcc.sh
 
 
