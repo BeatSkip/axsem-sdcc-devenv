@@ -21,6 +21,6 @@ RUN wget -q https://sourceforge.net/projects/sdcc/files/sdcc/3.6.0/sdcc-3.6.0.ta
 ENV PATH="/opt/sdcc/bin:${PATH}"
 
 # Copy platform libraries
-COPY platform-libs/ /opt/axsem
+COPY axsem-libs/ /opt/axsem
 WORKDIR /workspace
 
