@@ -14,6 +14,9 @@ ENV \
 RUN apt update \
     && apt install -y --no-install-recommends \
         curl \
+        tar \
+        bzip2 \
+        gzip \
         git \
         libatomic1 \
         wget \
@@ -40,10 +43,7 @@ RUN apt update && \
     g++ \
     libboost-dev \
     texinfo \
-    wget \
     make \
-    tar \
-    bzip2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
