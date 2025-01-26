@@ -18,7 +18,7 @@ RUN apt update \
 WORKDIR /tmp
 RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 RUN chmod +x ./dotnet-install.sh
-RUN ./dotnet-install.sh --runtime dotnet --version 6.0.0 --install-dir /home/vscode/.dotnet
+RUN ./dotnet-install.sh --channel LTS --version latest --install-dir /home/vscode/.dotnet
 RUN chown -R vscode:vscode /home/vscode/.dotnet
 
 
