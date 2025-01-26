@@ -20,7 +20,7 @@ RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
 RUN chmod +x ./dotnet-install.sh
 RUN ./dotnet-install.sh --channel LTS --version latest --install-dir /home/vscode/.dotnet
 RUN chown -R vscode:vscode /home/vscode/.dotnet
-
+ENV PATH="/home/vscode/.dotnet:${PATH}"
 
 RUN apt update && \
     apt install -y \
@@ -47,6 +47,7 @@ RUN curl -L http://downloads.sourceforge.net/project/sdcc/sdcc/3.6.0/sdcc-src-3.
 
 
 ENV PATH="/opt/sdcc/bin:${PATH}"
+
 
 # Copy platform libraries
 COPY axsem-libs/ /opt/axsem
