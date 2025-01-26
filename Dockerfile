@@ -24,7 +24,7 @@ RUN apt update && \
 # Set working directory
 RUN mkdir -p /usr/src/sdcc
 WORKDIR /usr/src/sdcc
-RUN curl -L https://kent.dl.sourceforge.net/project/sdcc/sdcc/${SDCC_VERSION}/sdcc-src-${SDCC_VERSION}.tar.bz2 | \
+RUN curl -L https://kent.dl.sourceforge.net/project/sdcc/sdcc/3.6.0/sdcc-src-3.6.0.tar.bz2 | \
     tar xvj --strip-components=1 && \
     ./configure --prefix=/usr && \
     make && \
