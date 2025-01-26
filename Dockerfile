@@ -1,15 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/cpp:1-debian-12
 ARG SDCC_VERSION=3.6.0
 ARG GPUTILS_VERSION=1.4.2
-ENV \
-    # Do not generate certificate
-    DOTNET_GENERATE_ASPNET_CERTIFICATE=false \
-    # Do not show first run text
-    DOTNET_NOLOGO=true \
-    # SDK version
-    DOTNET_SDK_VERSION=9.0.102 \
-    # Enable correct mode for dotnet watch (only mode supported in a container)
-    DOTNET_USE_POLLING_FILE_WATCHER=true
+ENV DOTNET_SDK_VERSION=9.0.102
 
 RUN apt update \
     && apt install -y --no-install-recommends \
@@ -23,14 +15,10 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET SDK
-RUN curl -fSL --output dotnet.tar.gz https://builds.dotnet.microsoft.com/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='f093507ef635c3f8e572bf7b6ea7e144b85ccf6b7c6f914d3f182f782200a6088728663df5c9abe0638c9bd273fde3769ec824a6516f5fce734c4a4664ce3099' \
-    && echo "$dotnet_sha512  dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -oxzf dotnet.tar.gz -C /usr/share/dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
-    && rm dotnet.tar.gz \
-    # Trigger first run experience by running arbitrary cmd
-    && dotnet help
+WORKDIR /tmp
+RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+RUN chmod +x ./dotnet-install.sh
+RUN ./dotnet-install.sh --version latest
 
 
 RUN apt update && \
